@@ -1,26 +1,27 @@
+import { ConnectedRouter } from 'connected-react-router';
+import {
+  configureStore,
+  getHistory,
+} from 'src/modules/store';
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from 'react-redux';
+import RoutesComponent from 'src/view/shared/routes/RoutesComponent';
+import jQuery from 'jquery';
+import 'bootstrap/dist/js/bootstrap';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
-function App() {
+(window as any).$ = (window as any).jQuery = jQuery;
+
+const store = configureStore();
+
+const App = (props) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <ConnectedRouter history={getHistory()}>
+        <RoutesComponent />
+      </ConnectedRouter>
+    </Provider>
   );
-}
+};
 
 export default App;
